@@ -14,7 +14,7 @@ export default function SideNav() {
             icon={IoStar}
             label="Heute"
             color="yellow"
-            active={true}
+            isActive={true}
           />
           <SideNavItem icon={IoCalendar} label="Geplant" color="red" />
         </ul>

@@ -1,9 +1,16 @@
 import { BsCheck } from "react-icons/bs"
+
+interface TodoItemProps {
+  value?: string
+  isChecked?: boolean
+  todoId?: string
+}
+
 export default function TodoItem({
   value = "Todo",
   isChecked = false,
   todoId = "check-1"
-}) {
+}: TodoItemProps) {
   return (
     <li className="inline-flex items-center">
       <label

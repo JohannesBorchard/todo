@@ -1,9 +1,14 @@
 import { IoRadioButtonOffOutline, IoCheckmarkCircle } from "react-icons/io5"
 
+interface SideNavProjectProps {
+  label?: string
+  finished?: boolean
+}
+
 export default function SideNavProject({
   label = "Side Nav Project",
   finished = false
-}) {
+}: SideNavProjectProps) {
   const [Icon, colorClass] = finished
     ? [IoCheckmarkCircle, "400"]
     : [IoRadioButtonOffOutline, "300"]
