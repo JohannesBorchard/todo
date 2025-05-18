@@ -19,7 +19,7 @@ export default function TodoItem({
       >
         <input
           type="checkbox"
-          className="peer h-4 w-4 cursor-pointer appearance-none rounded border border-slate-300 transition-all checked:border-blue-600 checked:bg-blue-600 hover:shadow-lg"
+          className="peer h-4 w-4 cursor-pointer appearance-none rounded border border-slate-300 transition-all checked:border-blue-500 checked:bg-blue-500 hover:shadow-lg"
           defaultChecked={isChecked}
           id={todoId}
         />
