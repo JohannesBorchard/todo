@@ -13,6 +13,13 @@ export default function TodayView() {
     localStorage.setItem("todoArr", JSON.stringify(todoArr))
   }, [todoArr])
 
+  function addNewTodo(value: string): void {
+    setTodoArr((prevTodoArr) => [
+      ...prevTodoArr,
+      { value: value, isChecked: false }
+    ])
+  }
+
   //[({ value: "Wäsche aufhängen", isChecked: true }, { value: "Programmieren", isChecked: false })]
 
   return (
@@ -29,7 +36,7 @@ export default function TodayView() {
             todoId={"check-" + index}
           />
         ))}
-        <AddTodoItem />
+        <AddTodoItem onClick={(value) => addNewTodo(value)} />
       </ul>
     </>
   )
