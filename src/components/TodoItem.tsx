@@ -1,18 +1,21 @@
 import { BsCheck } from "react-icons/bs"
+import { IoClose } from "react-icons/io5"
 
 interface TodoItemProps {
   value?: string
   isChecked?: boolean
   todoId?: string
+  removeAction?: () => void
 }
 
 export default function TodoItem({
   value = "Todo",
   isChecked = false,
-  todoId = "check-1"
+  todoId = "check-1",
+  removeAction
 }: TodoItemProps) {
   return (
-    <li className="inline-flex items-center">
+    <li className="group inline-flex items-center">
       <label
         className="relative flex cursor-pointer items-center"
         htmlFor={todoId}
@@ -33,6 +36,10 @@ export default function TodoItem({
       >
         {value}
       </label>
+      <IoClose
+        onClick={removeAction}
+        className="mt-0.5 ml-2 hidden h-4 w-4 cursor-pointer text-gray-300 transition-all group-hover:block hover:block hover:text-gray-700"
+      />
     </li>
   )
 }

@@ -20,6 +20,10 @@ export default function TodayView() {
     ])
   }
 
+  function removeTodo(indexToRemove: number) {
+    setTodoArr((prev) => prev.filter((_, i) => i !== indexToRemove))
+  }
+
   //[({ value: "Wäsche aufhängen", isChecked: true }, { value: "Programmieren", isChecked: false })]
 
   return (
@@ -34,6 +38,7 @@ export default function TodayView() {
             value={todoObj.value}
             isChecked={todoObj.isChecked}
             todoId={"check-" + index}
+            removeAction={() => removeTodo(index)}
           />
         ))}
         <AddTodoItem onClick={(value) => addNewTodo(value)} />
