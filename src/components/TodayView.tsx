@@ -1,8 +1,20 @@
 import { IoStar } from "react-icons/io5"
 import TodoItem from "./TodoItem"
 import AddTodoItem from "./AddTodoItem"
+import { useState, useEffect } from "react"
+import type { TodoType } from "../types"
 
 export default function TodayView() {
+  const [todoArr, setTodoArr] = useState<TodoType[]>(() =>
+    JSON.parse(localStorage.getItem("todoArr") ?? "[]")
+  )
+
+  useEffect(() => {
+    localStorage.setItem("todoArr", JSON.stringify(todoArr))
+  }, [todoArr])
+
+  //[({ value: "Wäsche aufhängen", isChecked: true }, { value: "Programmieren", isChecked: false })]
+
   return (
     <>
       <h1 className="text-3xl font-bold">
@@ -10,8 +22,13 @@ export default function TodayView() {
         Heute
       </h1>
       <ul className="flex flex-col gap-2 px-1 py-6">
-        <TodoItem value="Wäsche aufhängen" isChecked={true} todoId="check-1" />
-        <TodoItem value="Programmieren" isChecked={false} todoId="check-2" />
+        {todoArr.map((todoObj, index) => (
+          <TodoItem
+            value={todoObj.value}
+            isChecked={todoObj.isChecked}
+            todoId={"check-" + index}
+          />
+        ))}
         <AddTodoItem />
       </ul>
     </>
