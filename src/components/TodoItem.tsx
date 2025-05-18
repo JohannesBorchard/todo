@@ -7,7 +7,7 @@ interface TodoItemProps {
   isChecked?: boolean
   todoId?: string
   removeAction: () => void
-  completeAction: () => void
+  toggleTodoAction: (checked: boolean) => void
 }
 
 export default function TodoItem({
@@ -15,15 +15,17 @@ export default function TodoItem({
   isChecked = false,
   todoId = "check-1",
   removeAction,
-  completeAction
+  toggleTodoAction
 }: TodoItemProps) {
   const [isVisible, setIsVisible] = useState(true)
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     if (e.target.checked) {
       setTimeout(() => {
         setIsVisible(false)
-        completeAction()
+        toggleTodoAction(true)
       }, 1000)
+    } else {
+      toggleTodoAction(false)
     }
   }
 

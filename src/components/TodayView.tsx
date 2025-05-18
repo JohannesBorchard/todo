@@ -3,9 +3,10 @@ import TodoItem from "./TodoItem"
 import AddTodoItem from "./AddTodoItem"
 import { useState, useEffect } from "react"
 import type { TodoType } from "../types"
-import { TbRuler } from "react-icons/tb"
+import { useShowCompleted } from "../context/ShowCompletedContext"
 
 export default function TodayView() {
+  const { showCompleted } = useShowCompleted()
   const [todoArr, setTodoArr] = useState<TodoType[]>(() =>
     JSON.parse(localStorage.getItem("todoArr") ?? "[]")
   )
@@ -25,10 +26,10 @@ export default function TodayView() {
     setTodoArr((prev) => prev.filter((_, i) => i !== indexToRemove))
   }
 
-  function completeTodo(indexToComplete: number) {
+  function toggleTodo(indexToToggle: number, checked: boolean) {
     setTodoArr((prev) =>
       prev.map((todo, i) =>
-        i === indexToComplete ? { ...todo, isChecked: true } : todo
+        i === indexToToggle ? { ...todo, isChecked: checked } : todo
       )
     )
   }
@@ -41,17 +42,24 @@ export default function TodayView() {
         <IoStar className="mr-2 mb-1.5 inline text-yellow-500" size="1em" />
         Heute
       </h1>
+
       <ul className="flex flex-col gap-2 px-1 py-6">
-        {todoArr.map((todoObj, index) => (
-          <TodoItem
-            value={todoObj.value}
-            isChecked={todoObj.isChecked}
-            todoId={"check-" + index}
-            removeAction={() => removeTodo(index)}
-            completeAction={() => completeTodo(index)}
-          />
-        ))}
-        <AddTodoItem onClick={(value) => addNewTodo(value)} />
+        {todoArr.map((todo, idx) => {
+          if (!todo.isChecked || showCompleted) {
+            return (
+              <TodoItem
+                key={idx}
+                value={todo.value}
+                isChecked={todo.isChecked}
+                todoId={`check-${idx}`}
+                toggleTodoAction={(checked) => toggleTodo(idx, checked)}
+                removeAction={() => removeTodo(idx)}
+              />
+            )
+          }
+          return null
+        })}
+        <AddTodoItem onClick={addNewTodo} />
       </ul>
     </>
   )
