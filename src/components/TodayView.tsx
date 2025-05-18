@@ -1,5 +1,6 @@
 import { IoStar } from "react-icons/io5"
 import TodoItem from "./TodoItem"
+import AddTodoItem from "./AddTodoItem"
 
 export default function TodayView() {
   return (
@@ -11,6 +12,7 @@ export default function TodayView() {
       <ul className="flex flex-col gap-2 px-1 py-6">
         <TodoItem value="Wäsche aufhängen" isChecked={true} todoId="check-1" />
         <TodoItem value="Programmieren" isChecked={false} todoId="check-2" />
+        <AddTodoItem />
       </ul>
     </>
   )
