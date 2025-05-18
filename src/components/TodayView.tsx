@@ -3,6 +3,7 @@ import TodoItem from "./TodoItem"
 import AddTodoItem from "./AddTodoItem"
 import { useState, useEffect } from "react"
 import type { TodoType } from "../types"
+import { TbRuler } from "react-icons/tb"
 
 export default function TodayView() {
   const [todoArr, setTodoArr] = useState<TodoType[]>(() =>
@@ -24,6 +25,14 @@ export default function TodayView() {
     setTodoArr((prev) => prev.filter((_, i) => i !== indexToRemove))
   }
 
+  function completeTodo(indexToComplete: number) {
+    setTodoArr((prev) =>
+      prev.map((todo, i) =>
+        i === indexToComplete ? { ...todo, isChecked: true } : todo
+      )
+    )
+  }
+
   //[({ value: "Wäsche aufhängen", isChecked: true }, { value: "Programmieren", isChecked: false })]
 
   return (
@@ -39,6 +48,7 @@ export default function TodayView() {
             isChecked={todoObj.isChecked}
             todoId={"check-" + index}
             removeAction={() => removeTodo(index)}
+            completeAction={() => completeTodo(index)}
           />
         ))}
         <AddTodoItem onClick={(value) => addNewTodo(value)} />
